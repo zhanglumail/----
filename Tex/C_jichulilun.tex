@@ -243,6 +243,123 @@ NW模型中长程边的平均数为 $\frac{1}{2} N K p$, 涉及的端点数目�
 在刘慈欣的著作《三体》中提到了一个经典的天体物理问题——三体问题，这个问题的一个重要特点是三体系统的不稳定性，即在微小扰动的影响下，
 依托于一定时间内已知的位置与运动信息预测出将来的位置具有很大的变化。现实中很难把握系统中全部的微信息，例如一个原子的微小扰动几乎是
 难以描述的，如果模型自身对这种微小差异敏感度极高，那意味着这个系统几乎没有可以预测的可能性，预测出的结果与现实差异会随着时间轴指数级放大。
+衡量非线性系统的稳定性研究主要由李雅普诺夫稳定性入手，首先来研究系统自身的稳定性。
+考虑自治系统
+\begin{equation}
+    \dot{x}=f(x)
+\end{equation}
+其中 $, f: D \rightarrow R^n$ 是从定义域 $D \subset R^n$ 到 $R^n$ 上的局部利普希茨映射。
+假定 $\bar{x} \in D$ 是其的 平衡点, 即 $f(\bar{x})=0$ 。不失一般性，所有定义和定理都是对平衡点在 $R^n$ 上的原点,
+即 $\bar{x}=0$ 时的情况而言。因为经过变量代换总可以把平衡点变换为原点。假设 $\bar{x} \neq 0$, 经 $y=x-\bar{x}$ 变换后, $y$ 的
+导数为
+\begin{equation}
+    \dot{y}=\dot{x}=f(x)=f(y+\bar{x}) \stackrel{\text { def }}{=} g(y), g(0)=0
+\end{equation}
+对于变量$y$，系统在原点有平衡点。
+\begin{definition}
+    对于平衡点$x=0$，如果对于每个 $\varepsilon>0$, 都存在 $\delta=\delta(\varepsilon)>0$, 满足
+    \begin{equation}
+        \|x(0)\|<\delta \Rightarrow\|x(t)\|<\varepsilon, \quad \forall t \geqslant 0
+    \end{equation}
+    则该平衡, 点是稳定的。
+    如果稳定, 且可选择适当的 $\delta$, 满足
+    \begin{equation}
+        \|x(0)\|<\delta \Rightarrow \lim _{t \rightarrow \infty} x(t)=0
+    \end{equation}
+    则该平衡, 点是渐近稳定的。
+\end{definition}
+下面的李雅普诺夫稳定性定理是判断平衡点稳定的重要方法，它能够用某些其他函数代替能量以确定平衡点的稳定性。
+设 $V: D \rightarrow R$ 是连续可微函数，$\dot{V}(x)$是$V(x)$沿方程轨线的导数。即
+\begin{equation}
+    \begin{aligned}
+    \dot{V}(x) & =\sum_{i=1}^n \frac{\partial V}{\partial x_i} \dot{x}_i=\sum_{i=1}^n \frac{\partial V}{\partial x_i} f_i(x) \\
+    & =\left[\begin{array}{llll}
+    \frac{\partial V}{\partial x_1}, & \frac{\partial V}{\partial x_2}, & \cdots, & \frac{\partial V}{\partial x_n}
+    \end{array}\right]\left[\begin{array}{c}
+    f_1(x) \\
+    f_2(x) \\
+    \vdots \\
+    f_n(x)
+    \end{array}\right]=\frac{\partial V}{\partial x} f(x)
+    \end{aligned}
+\end{equation}
+\begin{theorem}
+    设 $x=0$ 是方程的一个平衡点, $D \subset R^n$ 是包含原点的定义域。设 $V: D \rightarrow R$ 是连续可微函数，如果
+    \begin{equation}
+        \begin{array}{lll}
+        V(0)=0, & V(x)>0 & \text { 在 } D-\{0\} \text { 内 } \\
+        & \dot{V}(x) \leqslant 0 & \text { 在 } D \text { 内 }
+        \end{array}
+    \end{equation}
+    那么, 原点 $x=0$ 是稳定的。此外, 如果
+    \begin{equation}
+        \dot{V}(x)<0 \quad \text { 在 } D-\{0\} \text { 内 }
+    \end{equation}
+    那么, 原点 $x=0$ 是渐近稳定的。
+\end{theorem}
+\begin{proof}
+    给定 $\varepsilon>0$, 任意 $r \in(0, \varepsilon]$, 有
+    \begin{equation}
+        B_r=\left\{x \in R^n \mid\|x\| \leqslant r\right\} \subset D
+    \end{equation}
+    设 $\alpha=\min _{\|x\|=r} V(x)$, 则由式 (2.33) 得 $\alpha>0$ 。取 $\beta \in(0, \alpha)$, 设
+    \begin{equation}
+        \Omega_\beta=\left\{x \in B_r \mid V(x) \leqslant \beta\right\}
+    \end{equation}
+    那么, $\Omega_\beta$ 在 $B_r$ 内  。集合 $\Omega_\beta$ 有如下的性质, 
+    当 $t \geqslant 0$ 时, 在 $t=0$ 时刻始于 $\Omega_\beta$ 内的任何轨线都保持在 $\Omega_\beta$ 内,  因为
+    \begin{equation}
+        \dot{V}(x(t)) \leqslant 0 \Rightarrow V(x(t)) \leqslant V(x(0)) \leqslant \beta, \forall t \geqslant 0
+    \end{equation}
+    由于 $\Omega_\beta$ 是紧集，只要 $x(0) \in \Omega_\beta$, 则对于所有 $t \geqslant 0$, 方程有唯一解。
+    因为 $V(x)$ 连续且 $V(0)=0$, 故存在 $\delta>0$ 满足
+    \begin{equation}
+        \|x\| \leqslant \delta \Rightarrow V(x)<\beta
+    \end{equation}
+    那么
+    \begin{equation}
+        B_\delta \subset \Omega_\beta \subset B_r
+    \end{equation}
+    并且
+    \begin{equation}
+        x(0) \in B_\delta \Rightarrow x(0) \in \Omega_\beta \Rightarrow x(t) \in \Omega_\beta \Rightarrow x(t) \in B_r
+    \end{equation}
+    因此
+    \begin{equation}
+        \|x(0)\|<\delta \Rightarrow\|x(t)\|<r \leqslant \varepsilon, \quad \forall t \geqslant 0
+    \end{equation}
+    因此平衡点$x=0$是稳定的。现在假设式(2.34)也成立,证明渐近稳定性，即对于每个 $a>0$, 存在 $T>0$, 使对于所有 $t>T$ 都有 $\|x(t)\|<a$ 。
+    由于对于每个 $a>0$, 可选择 $b>0$, 满足 $\Omega_b \subset B_a$，因此，$t$趋于无穷时,$V(x(t))$趋于零所以有。
+    \begin{equation}
+        V(x(t)) \rightarrow c \geqslant 0 \text { 当 } t \rightarrow \infty
+    \end{equation}
+    证明 $c=0$, 采用反证法。假设 $c>0$, 由 $V(x)$ 的连续性可知, 存在 $d>0$ 使 $B_d \subset \Omega_c$ 。
+    $V(x(t)) \rightarrow c>0$ 是指所有 $t \geqslant 0$, 轨线 $x(t)$ 位于球 $B_d$ 之外。
+    设 $-\gamma=\max _{d \leqslant\|x\| \leqslant r} \dot{V}(x)$, 因为连续函数 $\dot{V}(x)$ 在紧集 $\{d \leqslant\|x\| \leqslant r\}$ (1) 上有最大值。
+    由式 (2.34) 可知, $-\gamma<0$, 从 而有
+    \begin{equation}
+        V(x(t))=V(x(0))+\int_0^t \dot{V}(x(\tau)) d \tau \leqslant V(x(0))-\gamma t
+    \end{equation}
+    该不等式右项最终为负，故与假设相矛盾。
+\end{proof}
+满足式(2.33)的连续可微函数 $V(x)$ 称为李雅普诺夫函数。对于某个 $c>0$, 曲面 $V(x)=c$ 称为李雅普诺夫面或等位面。
+下面是Barbashin-Krasovski定理。 
+\begin{theorem}
+    设 $x=0$ 是方程的平衡点, $V: R^n \rightarrow R$ 是一个连续可微函数, 且满足
+    \begin{equation}
+        \begin{gathered}
+        V(0)=0 \text { 且 } V(x)>0, \quad \forall x \neq 0 \\
+        \|x\| \rightarrow \infty \Rightarrow V(x) \rightarrow \infty \\
+        \dot{V}(x)<0, \quad \forall x \neq 0
+        \end{gathered}
+     \end{equation}
+\end{theorem}
+接下来讨论线性时不变系统
+\begin{equation}
+    \dot{x}=A x
+\end{equation}
+
+
 
 \section{稀疏重构基本理论和算法}
 \subsection{稀疏重构基本理论}
