@@ -46,13 +46,27 @@ $\left(a_{ij}\right)_{N\times N}$为网络的邻接矩阵，$\varepsilon$为网�
     \includegraphics[width=0.8\textwidth]{31.png}
  \end{figure}
 \subsection{李雅普诺夫指数分析}
- 从3.1节可以看出，通过分岔图并不容易定量分析复杂系统的混沌行为，而对耦合系统混沌进行分析的另外一个指标为系统的最大Lyapunov指数
- (LE指数)。LE指数是衡量系统动力学特性的一个重要定量指标，表现了系统在相空间中相邻轨道间收缩或发散的平均指数率。
- 对于系统是否存在动力学混沌，可以从最大LE指数是否大于零非常直观的判断出来: 一个正的LE指数，意味着在系统相空间中，
- 无论初始两条轨线的间距多么小，其差别都会随着时间的演化而成指数率的增加以致达到无法预测，这就是混沌现象。
- 这一节我们利用变分法推导 Duffing-WS 型小世界网络的最大 LE 指数表 达式, 利用最大 LE 指数来研究其混沌现象, 
- 并分析小世界网络重连度 $K$, 重连 概率 $p$ 和耦合强度 $\varepsilon$ 等对复杂系统处于混沌运动状态参数范围的影响。
- 通过令 $z_i=\Omega t,\left. z_i\right|_{t=0}=0$ 可将非自治方程变成如下的自治方程组:
+从3.1节可以看出，通过分岔图并不容易定量分析复杂系统的混沌行为，而对耦合系统混沌进行分析的另外一个指标为系统的最大Lyapunov指数
+(LE指数)。LE指数是衡量系统动力学特性的一个重要定量指标，表现了系统在相空间中相邻轨道间收缩或发散的平均指数率。
+这一节我们利用变分法推导 Duffing-WS 型小世界网络的最大 LE 指数表 达式, 利用最大 LE 指数来研究其混沌现象，
+并分析小世界网络重连度 $K$， 重连 概率 $p$ 和耦合强度 $\varepsilon$ 等对复杂系统处于混沌运动状态参数范围的影响。
+首先给出LE指数计算方法的理论依据。\par
+设动力学系统由方程式决定: $\dot{\mathbf{X}}=F(\mathbf{X})$
+并考虑轨道相邻两点 $\mathbf{X}$ 和 $\mathbf{X}^{\prime}\left(\xi=\mathbf{X}-\mathbf{X}^{\prime}\right)$，将系统线性化得
+$$\dot{\xi}=T(\mathbf{X}(t)) \cdot \xi$$
+其中 $\mathbf{T}=(\partial F / \partial \mathbf{X})$ 是雅可比矩阵, $\xi$ 是切平面上的切矢量, 将上式积分有
+$$\xi(t)=\mathbf{A}^{\prime} \xi(0)$$
+其中，$\mathrm{A}^{\prime}$ 是切向量 $\xi(0)$ 到 $\xi(t)$ 的线性映射算子，因此得到平均指数增长率为
+$$\lambda(\mathbf{X}(0), \xi(0))=\lim _{t \rightarrow \infty} \frac{\|\xi(t)\|}{\|\xi(0)\|}$$
+对于重构相空间中的某一点 $\mathbf{X}_{\mathrm{i}}$，与 $\mathbf{X}_{\mathbf{i}}$ 点距离小于 $\varepsilon$ 的所有点记为 $\left\{\mathbf{X}_{\mathbf{k}_{\mathbf{i}}}, i=1,2, \cdots\right\}$，位移矢量为 
+$$\left\{\mathbf{Y}^{\mathbf{i}}\right\}=\left\{\mathbf{X}_{\mathbf{k}_{\mathbf{i}}}-\mathbf{X}_{\mathbf{i}} \mid\left\|\mathbf{X}_{\mathbf{k}_{\mathbf{i}}}-\mathbf{X}_{\mathbf{i}}\right\| \leq \varepsilon\right\}$$
+经过时间 $t$ 后，演化为 $\mathbf{X}_{\mathbf{i}} \rightarrow \mathbf{X}_{\mathbf{i + t}}, \mathbf{X}_{\mathbf{k}_{\mathbf{i}}} \rightarrow \mathbf{X}_{\mathbf{k}_{\mathbf{i}}+\mathbf{t}}$，因此原位移矢量 $\left\{\mathbf{Y}^{\mathrm{i}}\right\}$ 映射为
+$$\left\{\mathbf{Z}^{\mathbf{i}}\right\}=\left\{\mathbf{X}_{\mathbf{k}_{\mathbf{i}}+\mathbf{t}}-\mathbf{X}_{\mathbf{i}+\mathbf{t}} \mid\left\|\mathbf{X}_{\mathbf{k}_{\mathbf{i}}}-\mathbf{X}_{\mathbf{i}}\right\| \leq \varepsilon\right\}$$
+如果半径 $\varepsilon$ 足够小，位移矢量 $\left\{\mathbf{Y}^{\mathrm{i}}\right\}$ 和 $\left\{\mathbf{Z}^{\mathrm{i}}\right\}$ 可以近似为切平面上的切矢量，从 $\mathbf{Y}^{\mathrm{i}}$ 到 $\mathbf{Z}^{\mathbf{i}}$ 的矩阵 $\mathbf{A}_{\mathbf{j}}$ 满足
+$$\mathbf{Z}^{\mathbf{i}}=\mathbf{A}_{\mathbf{j}} \mathbf{Y}^{\mathbf{i}}$$
+
+使用最小二乘法，可以矩阵 $\mathbf{A}$, $\mathrm{QR}$ 分解矩阵 $\mathbf{A}$，在不同的时间段内进行 Gram-Schmidt正交化，即可得到所需的lyapunov指数 $\lambda_{i}, i=1,2, \cdots, d$。\par
+通过令 $z_i=\Omega t,\left. z_i\right|_{t=0}=0$ 可将本文小世界动力模型的非自治方程变成如下的自治方程组:
  \begin{equation}
     \left\{\begin{array}{l}
     \dot{x}_i=y_i \\
