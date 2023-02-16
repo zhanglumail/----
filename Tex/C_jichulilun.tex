@@ -354,11 +354,75 @@ NW模型中长程边的平均数为 $\frac{1}{2} N K p$, 涉及的端点数目�
         \end{gathered}
      \end{equation}
 \end{theorem}
-接下来讨论线性时不变系统
+下面是Chetaev定理，用于确定非稳定平衡点的不稳定性。
+\begin{theorem}
+    设 $x=0$ 是方程 $(4.1)$ 的平衡点。设 $V: D \rightarrow R$ 是连续可微函数, 满足 $V(0)=0$, 
+    且对于任意小 $\left\|x_0\right\|$ 的某一点 $x_0$, 有 $V\left(x_0\right)>0$ 。定义集合 $U=\left\{x \in B_r \mid V(x)>0\right\}$,
+    并假设在 $U$ 内有 $\dot{V}(x)>0$, 那么 $x=0$ 就是非稳定平衡点。
+\end{theorem}
+接下来讨论非线性系统线性化的方法，定义线性系统
 \begin{equation}
     \dot{x}=A x
 \end{equation}
-
+该系统在原点处有一个平衡点, 当且仅当 $\operatorname{det}(A) \neq 0$ 时, 该平衡点是孤立的。
+如果 $\operatorname{det}(A)=0$, 则矩阵 $A$ 有一个非平凡零空间。 $A$ 的零空间内的每一点都是系统的平衡点，进而系统有一个平衡点子空间。
+线性系统不可能有多个孤立的平衡点, 因为如果 $\bar{x}_1$ 和 $\bar{x}_2$ 是系统的两个平衡点, 那么连接 $\bar{x}_1$ 和 $\bar{x}_2$ 
+两点的直线上的每一点都是系统的平衡点。原点的稳定性质由矩阵 $A$ 的特征值位置决定。对于给定的初始状态 $x(0)$, 系统的解为
+\begin{equation}
+    x(t)=\exp (A t) x(0)
+\end{equation}
+转换为若尔当标准型
+\begin{equation}
+    P^{-1} A P=J=\text { block } \operatorname{diag}\left[J_1, J_2, \cdots, J_r\right]
+\end{equation}
+\begin{equation}
+    J_i=\left[\begin{array}{cccccc}
+    \lambda_i & 1 & 0 & \ldots & \ldots & 0 \\
+    0 & \lambda_i & 1 & 0 & \ldots & 0 \\
+    \vdots & & \ddots & & & \vdots \\
+    \vdots & & & \ddots & & 0 \\
+    \vdots & & & & \ddots & 1 \\
+    0 & \ldots & \ldots & \ldots & 0 & \lambda_i
+    \end{array}\right]_{m \times m}
+\end{equation}
+因此
+\begin{equation}
+    \exp (A t)=P \exp (J t) P^{-1}=\sum_{i=1}^r \sum_{k=1}^{m_i} t^{k-1} \exp \left(\lambda_i t\right) R_{i k}
+\end{equation}
+\begin{theorem}
+    当且仅当 $A$ 的所有特征值都满足 $\operatorname{Re} \lambda_i \leqslant 0$, 对于每个 $\operatorname{Re} \lambda_i=0$,
+    代数重数 $q_i \geqslant 2$ 的特征值满足 $\operatorname{rank}\left(A-\lambda_i I\right)=n-q_i$ 时
+    （$n$ 为 $x$ 的维数），方程 $\dot{x}=A x$ 的平衡点 $x=0$ 是稳定的。 
+    当且仅当 $A$ 的所有特征值满足 $\operatorname{Re} \lambda_i<0$ 时, 平衡点 $x=0$ 是全局渐近稳定的。
+\end{theorem}
+回到非线性系统(2.29)，$f: D \rightarrow R^n$ 是从 $D \subset R^n$ 到 $R^n$ 的连续可微映射。
+假设原点 $x=0$ 在 $D$ 内, 且为系统的一个 平衡点, 即 $f(0)=0$ 。根据均值定理
+\begin{equation}
+    f_i(x)=f_i(0)+\frac{\partial f_i}{\partial x}\left(z_i\right) x
+\end{equation}
+其中 $z_i$ 是连接 $x$ 与原点之间的线段上的一点。由于$f(0)=0$
+\begin{equation}
+    f_i(x)=\frac{\partial f_i}{\partial x}\left(z_i\right) x=\frac{\partial f_i}{\partial x}(0) x+\left[\frac{\partial f_i}{\partial x}\left(z_i\right)-\frac{\partial f_i}{\partial x}(0)\right] x
+\end{equation}
+所以
+\begin{equation}
+    f(x)=A x+g(x)
+\end{equation}
+其中
+\begin{equation}
+    A=\frac{\partial f}{\partial x}(0), \quad g_i(x)=\left[\frac{\partial f_i}{\partial x}\left(z_i\right)-\frac{\partial f_i}{\partial x}(0)\right] x
+\end{equation}
+并且
+\begin{equation}
+    \left|g_i(x)\right| \leqslant\left\|\frac{\partial f_i}{\partial x}\left(z_i\right)-\frac{\partial f_i}{\partial x}(0)\right\|\|x\|
+\end{equation}
+\begin{equation}
+    \frac{\|g(x)\|}{\|x\|} \rightarrow 0 \text {, 当 }\|x\| \rightarrow 0
+\end{equation}
+这就是说在原点的一个小邻域内，可以用对系统在原点的线性化方程
+\begin{equation}
+    \dot{x}=A x, \quad \text { 其中 } A=\frac{\partial f}{\partial x}(0)
+\end{equation}
 
 
 \section{稀疏重构基本理论和算法}
